@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    protected $fillable = ['commentable_id', 'commentable_type', 'body'];
+    protected $fillable = ['commentable_id', 'commentable_type', 'body', 'user_id'];
 
     public function commentable() {
         return $this->morphTo();
