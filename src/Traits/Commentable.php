@@ -22,7 +22,7 @@ trait Commentable
     public function approveComment(int $commentId) 
     {
         $comment = Comment::findOrFail($commentId);
-        $comment->approved = true;
+        $comment->is_approved = true;
         $comment->save();
         return $comment;
     }
@@ -30,23 +30,23 @@ trait Commentable
     public function disapproveComment(int $commentId)
     {
         $comment = Comment::findOrFail($commentId);
-        $comment->approved = false;
+        $comment->is_approved = false;
         $comment->save();
         return $comment;
     }
 
-    public function makeCommentHidden(int $commentId)
+    public function hideComment(int $commentId)
     {
         $comment = Comment::findOrFail($commentId);
-        $comment->visible = false;
+        $comment->is_hidden = true;
         $comment->save();
         return $comment;
     }
 
-    public function makeCommentVisible(int $commentId)
+    public function unhideComment(int $commentId)
     {
         $comment = Comment::findOrFail($commentId);
-        $comment->visible = true;
+        $comment->is_hidden = false;
         $comment->save();
         return $comment;
     }

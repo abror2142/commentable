@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->morphs('commentable');
             $table->string('body');
-            $table->boolean('approved')->default(false);
-            $table->boolean('visible')->default(true);
+            $table->boolean('is_approved')->default(false);
+            $table->boolean('is_hidden')->default(false);
             $table->integer('user_id')->nullable();
             $table->timestamps();
         });
