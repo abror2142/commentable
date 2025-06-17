@@ -18,4 +18,43 @@ trait Commentable
             'user_id' => $userId
         ]);
     }
+
+    public function approveComment(int $commentId) 
+    {
+        $comment = Comment::findOrFail($commentId);
+        $comment->approved = true;
+        $comment->save();
+        return $comment;
+    }
+
+    public function disapproveComment(int $commentId)
+    {
+        $comment = Comment::findOrFail($commentId);
+        $comment->approved = false;
+        $comment->save();
+        return $comment;
+    }
+
+    public function makeCommentHidden(int $commentId)
+    {
+        $comment = Comment::findOrFail($commentId);
+        $comment->visible = false;
+        $comment->save();
+        return $comment;
+    }
+
+    public function makeCommentVisible(int $commentId)
+    {
+        $comment = Comment::findOrFail($commentId);
+        $comment->visible = true;
+        $comment->save();
+        return $comment;
+    }
+
+    public function deleteComment(int $commentId)
+    {
+        $comment = Comment::findOrFail($commentId);
+        $comment->delete();
+        return;
+    }
 }
