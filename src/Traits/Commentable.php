@@ -11,11 +11,21 @@ trait Commentable
         return $this->morphMany(Comment::class, 'commentable');
     }
 
-    public function addComment(string $body, ?int $userId = null): Comment
+    public function addComment(string $body, ?int $userId = null, ?int $parentId = null)
     {
+        # This if statement ensures that only one level comments are allowed.
+        # !! To enable multi-level comments, comment/delete this if statement.
+        if($parentId !== null) {
+            $parent = $this->comments()->findOrFail($parentId);
+            if($parent->parent_id !== null) {
+                throw new \Exception("Only 1 level comments are allowed!");
+            }
+        }
+
         return $this->comments()->create([
             'body' => $body,
-            'user_id' => $userId
+            'user_id' => $userId,
+            'parent_id' => $parentId
         ]);
     }
 
