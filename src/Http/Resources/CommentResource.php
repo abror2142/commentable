@@ -15,10 +15,12 @@ class CommentResource extends JsonResource
             'user_id' => $this->user_id,
             'is_approved' => $this->is_approved,
             'is_hidden' => $this->is_hidden,
+            'thread_id' => $this->thread_id,
+            'parent_id' => $this->parent_id,
             'created_at' => $this->created_at?->toDateTimeString(),
             'updated_at' => $this->updated_at?->toDateTimeString(),
             'replies' => CommentResource::collection($this->whenLoaded('replies')),
-            'user' => new UserResource($this->whenLoaded('user'))
+            'user' => UserResource::make($this->whenLoaded('user'))
         ];
     }
 }
