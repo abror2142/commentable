@@ -18,6 +18,7 @@ return new class extends Migration
             $table->boolean('is_approved')->default(false);
             $table->boolean('is_hidden')->default(false);
             $table->foreignId('parent_id')->nullable()->constrained('comments')->cascadeOnDelete();
+            $table->foreignId('thread_id')->nullable()->constrained('comments')->cascadeOnDelete();
             $table->integer('user_id')->nullable();
             $table->timestamps();
         });

@@ -2,6 +2,7 @@
 
 namespace Abrorbekismoilov\Commentable\Http\Resources;
 
+use Abrorbekismoilov\Commentable\Http\Resources\UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CommentResource extends JsonResource 
@@ -16,7 +17,8 @@ class CommentResource extends JsonResource
             'is_hidden' => $this->is_hidden,
             'created_at' => $this->created_at?->toDateTimeString(),
             'updated_at' => $this->updated_at?->toDateTimeString(),
-            'replies' => CommentResource::collection($this->whenLoaded('replies'))
+            'replies' => CommentResource::collection($this->whenLoaded('replies')),
+            'user' => new UserResource($this->whenLoaded('user'))
         ];
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    protected $fillable = ['commentable_id', 'commentable_type', 'body', 'user_id', 'is_approved', 'is_hidden', 'parent_id'];
+    protected $fillable = ['commentable_id', 'commentable_type', 'body', 'user_id', 'is_approved', 'is_hidden', 'parent_id', 'thread_id'];
 
     public function commentable() {
         return $this->morphTo();
@@ -19,7 +19,17 @@ class Comment extends Model
 
     public function replies() 
     {
-        return $this->hasMany(Comment::class, 'parent_id');
+        return $this->hasMany(Comment::class, 'thread_id');
+    }
+
+    public function thread() 
+    {
+        return $this->belongsTo(Comment::class, 'thread_id');
+    }
+
+    public function user() 
+    {
+        return $this->belongsTo(config('auth.providers.users.model'));
     }
 
 }
